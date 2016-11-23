@@ -1,0 +1,101 @@
+$def with (programs, myblockdefs, vars, medias, daisychain)
+<?xml version="1.0" encoding="utf-8"?>
+<SourceFile Version="1.0.2.10" xmlns="http://www.ni.com/SourceModel.xsd">
+	<Namespace Name="Default">
+		<Project xmlns="http://www.ni.com/Project.xsd">
+			<Target DocumentTypeIdentifier="VIVMTarget" Name="VI\ Virtual\ Machine">
+
+                <ProjectReference ReferenceName="NationalInstruments.VI.VirtualMachine.Runtime, Version=0.0.0.0" ReferencePath="" />
+
+                <ProjectReference ReferenceName="NationalInstruments.LabVIEW.CoreRuntime, Version=0.0.0.0" ReferencePath="" />
+
+                <SourceFileReference StoragePath="Activity.x3a" RelativeStoragePath="Activity.x3a" DocumentTypeIdentifier="NationalInstruments.GuidedHelpFramework.Model.GuidedHelp" Name="Activity\.x3a" />
+
+                <DefinitionReference DocumentTypeIdentifier="NationalInstruments.ExternalFileSupport.Modeling.ExternalFileType" Name="ActivityAssets\.laz" Bindings="Envoy,DefinitionReference,EmbeddedReference,ProjectItemDragDropDefaultService" />
+
+                <DefinitionReference DocumentTypeIdentifier="NationalInstruments.X3.App.X3FolderLoaderDefinition" Name="vi\.lib_" Bindings="Envoy,DefinitionReference,EmbeddedReference" />
+
+                <DefinitionReference DocumentTypeIdentifier="NationalInstruments.ExternalFileSupport.Modeling.ExternalFileType" Name="___ProjectTitle" Bindings="Envoy,DefinitionReference,EmbeddedReference,ProjectItemDragDropDefaultService" />
+
+                <DefinitionReference DocumentTypeIdentifier="NationalInstruments.ExternalFileSupport.Modeling.ExternalFileType" Name="___CopyrightYear" Bindings="Envoy,DefinitionReference,EmbeddedReference,ProjectItemDragDropDefaultService" />
+
+                <DefinitionReference DocumentTypeIdentifier="NationalInstruments.X3.App.X3FolderLoaderDefinition" Name="vi\.lib_PBR" Bindings="Envoy,DefinitionReference,EmbeddedReference" />
+
+				$for program in programs:
+					<SourceFileReference StoragePath="$program" RelativeStoragePath="$program" OverridingDocumentTypeIdentifier="X3VIDocument" DocumentTypeIdentifier="NationalInstruments.LabVIEW.VI.Modeling.VirtualInstrument" Name="${program.replace('.','\\.').replace(' ','\\ ')}">
+						<X3DocumentSettings ShowFileOnStartup="False" IsTeacherOnlyFile="False" IsHiddenDependency="False" xmlns="http://www.ni.com/X3DocumentSettings.xsd" />
+					</SourceFileReference>
+				$for myblock in myblockdefs:
+					<SourceFileReference StoragePath="$myblock" RelativeStoragePath="$myblock" OverridingDocumentTypeIdentifier="X3VIDocument" DocumentTypeIdentifier="NationalInstruments.LabVIEW.VI.Modeling.VirtualInstrument" Name="${myblock.replace('.','\\.').replace(' ','\\ ')}" Bindings="Envoy,DefinitionReference,SourceFileReference,X3VIDocument" >
+						<X3DocumentSettings ShowFileOnStartup="False" IsTeacherOnlyFile="False" IsHiddenDependency="False" xmlns="http://www.ni.com/X3DocumentSettings.xsd" />
+					</SourceFileReference>
+					<DefinitionReference DocumentTypeIdentifier="NationalInstruments.ExternalFileSupport.Modeling.ExternalFileType" Name="${myblock.replace('.','\\.').replace(' ','\\ ')}\.mbxml" Bindings="Envoy,DefinitionReference,EmbeddedReference,ProjectItemDragDropDefaultService" />
+				$for media in medias:
+					<DefinitionReference DocumentTypeIdentifier="NationalInstruments.ExternalFileSupport.Modeling.ExternalFileType" Name="${media.replace('.','\\.').replace(' ','\\ ')}" Bindings="Envoy,DefinitionReference,EmbeddedReference,ProjectItemDragDropDefaultService" />
+			</Target>
+			<ProjectSettings>
+				$if vars:
+					<NamedGlobalData xmlns="http://www.ni.com/X3NamedGlobalData.xsd">
+					$for v in vars:
+						<Datum Name="$v" Kind="Variable" Type="$vars[v]" />
+					</NamedGlobalData>
+				$else:
+					<NamedGlobalData xmlns="http://www.ni.com/X3NamedGlobalData.xsd" />
+				<ProjectOrigin Path="en-US/Internal/FreePlayProgram.ev3" xmlns="http://www.ni.com/X3ProjectOrigin.xsd" />
+				$if daisychain:
+					<DaisyChainMode On="True" xmlns="http://www.ni.com/X3ProjectPropertiesModel.xsd" />
+				$else:
+					<DaisyChainMode On="False" xmlns="http://www.ni.com/X3ProjectPropertiesModel.xsd" />
+			</ProjectSettings>
+		</Project>
+	</Namespace>
+	<Namespace Name="VI\ Virtual\ Machine">
+		<VIVMTarget xmlns="http://www.ni.com/VIVMTarget.xsd" />
+	</Namespace>
+	<Namespace Name="ActivityAssets\.laz">
+		<ExternalFile xmlns="http://www.ni.com/ExternalFile.xsd">
+			<RelativeStoragePath>ActivityAssets.laz</RelativeStoragePath>
+			<StoragePath></StoragePath>
+		</ExternalFile>
+	</Namespace>
+	<Namespace Name="___ProjectTitle">
+        <ExternalFile xmlns="http://www.ni.com/ExternalFile.xsd">
+            <RelativeStoragePath>___ProjectTitle</RelativeStoragePath>
+            <StoragePath></StoragePath>
+        </ExternalFile>
+    </Namespace>
+    <Namespace Name="___CopyrightYear">
+        <ExternalFile xmlns="http://www.ni.com/ExternalFile.xsd">
+            <RelativeStoragePath>___CopyrightYear</RelativeStoragePath>
+            <StoragePath></StoragePath>
+        </ExternalFile>
+    </Namespace>
+    <Namespace Name="vi\.lib_">
+		<LoaderDefinition xmlns="http://www.ni.com/LoaderDefinition.xsd">
+			<Type>FolderLoaderDefinition</Type>
+			<Name>vi.lib_</Name>
+			<Location />
+		</LoaderDefinition>
+	</Namespace>
+	<Namespace Name="vi\.lib_PBR">
+        <LoaderDefinition xmlns="http://www.ni.com/LoaderDefinition.xsd">
+            <Type>FolderLoaderDefinition</Type>
+            <Name>vi.lib_PBR</Name>
+            <Location />
+        </LoaderDefinition>
+    </Namespace>
+	$for myblock in myblockdefs:
+		<Namespace Name="${myblock.replace('.','\\.').replace(' ','\\ ')}\.mbxml">
+			<ExternalFile xmlns="http://www.ni.com/ExternalFile.xsd">
+				<RelativeStoragePath>${myblock}.mbxml</RelativeStoragePath>
+				<StoragePath></StoragePath>
+			</ExternalFile>
+		</Namespace>
+	$for media in medias:
+		<Namespace Name="${media.replace('.','\\.').replace(' ','\\ ')}">
+	        <ExternalFile xmlns="http://www.ni.com/ExternalFile.xsd">
+	            <RelativeStoragePath>$media</RelativeStoragePath>
+	            <StoragePath />
+	        </ExternalFile>
+	    </Namespace>
+</SourceFile>
