@@ -1,21 +1,26 @@
 = Purpose =
+
 This is to provide version control for EV3 files such that FLL teams can work on multiple computers.
 
 This starts from the great work done by Thad Hughes at https://github.com/Thaddeus-Maximus/ev3hub
 
 = System Requirements = 
+
 Python 2.7
 A computer that can run things. Don't really need a lot of horsepower or even transfer speeds.
 
 = Disclaimer =
+
 This is from reverse engineering the EV3 format.  (which could change at any time)
 There is absolutely NO promise made that your data will be ok.   It has not been thoroughly tested.
 This is in progress and being developed.   If you want a more stable one, go to the original work mentioned above. 
 
 = Issues =
+
 Issues?  Please open them on the github project at https://github.com/alan412/ev3hub 
 
 = Old readme = 
+
 Server system requirements:
 An operating system. I've devved this in Windows. It should work on Linux. Haven't tested on Mac and make no guaruntees.
 Python 2.7
